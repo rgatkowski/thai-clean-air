@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    tty: true
+    volumes:
+      - ./backend:/backend
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:${PORT}"
+    command: "./scripts/run_backend.sh"
