@@ -103,6 +103,7 @@ python-dateutil==2.8.2
     # via
     #   botocore
     #   pendulum
+python-dotenv==1.0.0
 pytzdata==2020.1
     # via pendulum
 pyyaml==6.0.1
