@@ -1,4 +1,17 @@
 import createTheme from '@mui/material/styles/createTheme';
+import { Sarabun, Dela_Gothic_One } from 'next/font/google';
+ 
+const sarabun = Sarabun({
+  weight: ['400'],
+  style: ['normal'],
+  subsets: ['latin'],
+});
+
+const delaGothicOne = Dela_Gothic_One({
+  weight: ['400'],
+  style: ['normal'],
+  subsets: ['latin'],
+});
 
 const DefaultTheme = createTheme({
   palette: {
@@ -9,6 +22,9 @@ const DefaultTheme = createTheme({
     secondary: {
       main: '#40bab5',
     },
+    info: {
+      main: "#fc4f60",
+    },
     background: {
       default: '#f9fafd',
     },
@@ -17,10 +33,10 @@ const DefaultTheme = createTheme({
     },
   },
   shape: {
-    borderRadius: 20,
+    borderRadius: 4,
   },
   typography: {
-    fontFamily: 'sans-serif',
+    fontFamily: delaGothicOne.style.fontFamily,
     h1: {
       fontWeight: 400,
       lineHeight: 1.4,
@@ -37,13 +53,13 @@ const DefaultTheme = createTheme({
       fontWeight: 400,
     },
     body1: {
-      fontFamily: 'sans-serif',
+      fontFamily: sarabun.style.fontFamily,
       fontSize: 'clamp( 0.75rem, 2.4vmin, 1.5rem )',
       lineHeight: 1.6,
       fontWeight: 400,
     },
     body2: {
-      fontFamily: 'sans-serif',
+      fontFamily: sarabun.style.fontFamily,
       fontSize: 'clamp( 0.5rem, 2vmin, 1.25rem )',
       lineHeight: 1.6,
       fontWeight: 400,

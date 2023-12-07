@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
 
 import Overlay from '@tc/atoms/Overlay';
+import Hero from '@tc/organisms/Hero';
+import Healthiness from '@tc/organisms/Healthiness';
 import ArticlesPage from '@tc/organisms/ArticlePage';
 
 import useGetLocation from '@tc/utils/useGetLocation';
@@ -39,7 +40,8 @@ export default function Home() {
 
   return (
     <>
-      <Typography variant="h1">Lets make some test</Typography>
+      <Hero />
+      <Healthiness />
       <Overlay particlesNumber={parseInt(pm25)} />
       <ArticlesPage articles={articles} />
     </>
