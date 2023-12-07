@@ -217,14 +217,14 @@ def process_results(results):
     Returns:
         dict: A dictionary of processed measurements.
     """
-    measures = {}
-    for result in results:
-        parameter = result.get("parameter", "")
-        if parameter:
-            measures.setdefault(parameter, []).append(
-                {
-                    "value": result.get("value", ""),
-                    "date": result.get("date", {}).get("utc", ""),
-                }
-            )
-    return measures
+    pm25_measures = [
+        {
+            "value": result.get("value"),
+            "date": result.get("date", {}).get("utc"),
+        }
+        for result in results
+        if result.get("parameter", "").lower() == "pm25"
+        and result.get("value") is not None
+    ]
+
+    return max(pm25_measures, key=lambda x: x["value"], default={})
