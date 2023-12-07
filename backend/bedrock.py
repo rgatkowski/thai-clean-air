@@ -1,10 +1,9 @@
-import boto3
 import os
 
+import boto3
+from constants import BEDROCK_TEMPLATES
 from langchain.llms.bedrock import Bedrock
 from langchain.prompts import PromptTemplate
-
-from constants import BEDROCK_TEMPLATES
 
 
 class BedrockService:
