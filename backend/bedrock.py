@@ -1,7 +1,7 @@
 import os
 
 import boto3
-from constants import BEDROCK_TEMPLATES
+from constants import BEDROCK_TEMPLATES, DEFAULT_BEDROCK_TEMPLATE
 from langchain.llms.bedrock import Bedrock
 from langchain.prompts import PromptTemplate
 
@@ -29,7 +29,7 @@ class BedrockService:
             "bedrock-runtime",
             aws_access_key_id=os.environ.get("AWS_ACCESS_KEY"),
             aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
-            region_name=os.environ.get("AWS_REGION"),
+            region_name=os.environ.get("AWS_REGION", "us-east-1"),
         )
 
         return Bedrock(
@@ -85,7 +85,6 @@ class BedrockService:
         return PromptTemplate(
             input_variables=["pm25", "city", "country"],
             template=BEDROCK_TEMPLATES.get(
-                article_type,
-                "The current air quality in {city}, " "{country} is: {pn25}",
+                article_type, DEFAULT_BEDROCK_TEMPLATE
             ),
         )
