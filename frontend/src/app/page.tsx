@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Overlay from '@tc/atoms/Overlay';
 import Hero from '@tc/organisms/Hero';
 import Healthiness from '@tc/organisms/Healthiness';
+import Environment from '@tc/organisms/Environment';
 import ArticlesPage from '@tc/organisms/ArticlePage';
 
 import useGetLocation from '@tc/utils/useGetLocation';
@@ -42,7 +43,8 @@ export default function Home() {
     <>
       <Hero />
       <Healthiness />
-      <Overlay particlesNumber={parseInt(pm25)} />
+      <Environment />
+      <Overlay particlesNumber={10} />
       <ArticlesPage articles={articles} />
     </>
   );
