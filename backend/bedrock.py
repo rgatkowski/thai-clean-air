@@ -12,7 +12,7 @@ class BedrockService:
         "maxTokenCount": 1024,
         "temperature": 0.5,
         "topP": 0.5,
-        "stopSequences": []
+        "stopSequences": [],
     }
 
     def __init__(self):
@@ -20,25 +20,28 @@ class BedrockService:
 
     def _get_llm(self) -> Bedrock:
         """
-        Connects to AWS and creates a Bedrock instance that we can use to communicate with the Bedrock.
+        Connects to AWS and creates a Bedrock instance
+        that we can use to communicate with the Bedrock.
 
         Returns:
             Bedrock: Bedrock LLM model object.
         """
         client = boto3.client(
-            'bedrock-runtime',
+            "bedrock-runtime",
             aws_access_key_id=os.environ.get("AWS_ACCESS_KEY"),
             aws_secret_access_key=os.environ.get("AWS_SECREET_ACCESS_KEY"),
-            region_name=os.environ.get("AWS_REGION")
+            region_name=os.environ.get("AWS_REGION"),
         )
 
         return Bedrock(
             client=client,
-            model_id='amazon.titan-text-express-v1',
-            model_kwargs=self.model_kwargs
+            model_id="amazon.titan-text-express-v1",
+            model_kwargs=self.model_kwargs,
         )
 
-    def get_article(self, article_type: str, city: str, country: str, pm25: float) -> str:
+    def get_article(
+        self, article_type: str, city: str, country: str, pm25: float
+    ) -> str:
         """
         Generate a text based on the specified article type.
 
@@ -63,25 +66,27 @@ class BedrockService:
     @staticmethod
     def _get_template(article_type: str) -> PromptTemplate:
         """
-            Return a PromptTemplate for the specified article type.
+        Return a PromptTemplate for the specified article type.
 
-            This method creates and returns an instance of the PromptTemplate
-            class, which uses as input variables "pm25", "city", "country",
-            and a default template with placeholders for these values.
-            If a template for the provided article type exists in the
-            `BEDROCK_TEMPLATES` dictionary, this template is used instead
-            of the default one.
+        This method creates and returns an instance of the PromptTemplate
+        class, which uses as input variables "pm25", "city", "country",
+        and a default template with placeholders for these values.
+        If a template for the provided article type exists in the
+        `BEDROCK_TEMPLATES` dictionary, this template is used instead
+        of the default one.
 
-            Args:
-                article_type (str): The type of article for which to fetch
-                the template.
+        Args:
+            article_type (str): The type of article for which to fetch
+            the template.
 
-            Returns:
-                PromptTemplate: An instance of the PromptTemplate class,
-                configured with the appropriate input variables and template.
-            """
+        Returns:
+            PromptTemplate: An instance of the PromptTemplate class,
+            configured with the appropriate input variables and template.
+        """
         return PromptTemplate(
             input_variables=["pm25", "city", "country"],
-            template=BEDROCK_TEMPLATES.get(article_type, "The current air quality in {city}, {country} is: {pn25}")
+            template=BEDROCK_TEMPLATES.get(
+                article_type,
+                "The current air quality in {city}, " "{country} is: {pn25}",
+            ),
         )
-

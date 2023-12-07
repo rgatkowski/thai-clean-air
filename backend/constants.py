@@ -30,5 +30,5 @@ The current air quality in {city}, {country} is:
 Based on the current Air quality, what is the impact to global warming?
 The response should be in 3 sentences.
 Start with: "The impact to the global warming is"
-        """
+        """,
 }

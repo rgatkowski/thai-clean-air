@@ -119,10 +119,18 @@ def get_bedrock_response(city, country, language):
     # Articles describing the impacts of PM2.5 pollution in various categories
     llm = BedrockService()
     return {
-        "short-term": llm.get_article("short-term", city=city, country=country, pm25=39.2),
-        "long-term": llm.get_article("long-term", city=city, country=country, pm25=39.2),
-        "environment": llm.get_article("environment", city=city, country=country, pm25=39.2),
-        "global-warming": llm.get_article("global-warming", city=city, country=country, pm25=39.2),
+        "short-term": llm.get_article(
+            "short-term", city=city, country=country, pm25=39.2
+        ),
+        "long-term": llm.get_article(
+            "long-term", city=city, country=country, pm25=39.2
+        ),
+        "environment": llm.get_article(
+            "environment", city=city, country=country, pm25=39.2
+        ),
+        "global-warming": llm.get_article(
+            "global-warming", city=city, country=country, pm25=39.2
+        ),
     }
 
 
@@ -178,9 +186,7 @@ def get_measures_from_openaq(city: str, country: str, limit: int) -> dict:
         return response.json()
 
     current_date = datetime.now().strftime("%Y-%m-%d")
-    date_5_years_ago = (datetime.now() - timedelta(days=5 * 365)).strftime(
-        "%Y-%m-%d"
-    )
+    date_5_years_ago = datetime.now() - timedelta(days=5 * 365)
     country_alpha = get_country_alpha2(country)
 
     data = fetch_data(city)
@@ -195,7 +201,7 @@ def get_measures_from_openaq(city: str, country: str, limit: int) -> dict:
         "country": country,
         "country_alpha": country_alpha,
         "city": city,
-        "date_from": date_5_years_ago,
+        "date_from": date_5_years_ago.strftime("%Y-%m-%d"),
         "date_to": current_date,
         "results": measures,
     }
