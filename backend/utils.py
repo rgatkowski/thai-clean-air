@@ -1,7 +1,9 @@
-import pycountry
 import unicodedata
-from models import Coordinates
+
+import pycountry
 from fastapi import HTTPException
+
+from models import Coordinates
 
 
 def validate_coordinates(location_str: str) -> Coordinates:

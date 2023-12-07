@@ -1,5 +1,6 @@
-import requests
 from datetime import datetime, timedelta
+
+import requests
 from fastapi_cache.decorator import cache
 from requests.exceptions import RequestException
 

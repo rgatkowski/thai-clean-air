@@ -21,3 +21,9 @@ repos:
     hooks:
       - id: flake8
         files: backend/
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.11.2
+    hooks:
+      - id: isort
+        name: isort (python)
