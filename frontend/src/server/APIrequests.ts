@@ -1,4 +1,4 @@
-import { IArticles } from '../types/commonTypes';
+import { IArticles } from '@tc/types/commonTypes';
 import server from './server';
 
 export async function getPm25ForUsersLocation(latitude: number, longitude: number): Promise<number> {

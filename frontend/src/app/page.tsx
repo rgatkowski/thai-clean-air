@@ -8,7 +8,7 @@ import ArticlesPage from '@tc/organisms/ArticlePage';
 import useGetLocation from '@tc/utils/useGetLocation';
 
 import { defaultPM25Value } from '@tc/constants/defaultValues';
-import { getArticles, getPm25ForUsersLocation } from '../server/APIrequests';
+import { getArticles, getPm25ForUsersLocation } from '@tc/server/APIrequests';
 import { IArticles } from '@tc/types/commonTypes';
 
 export default function Home() {
