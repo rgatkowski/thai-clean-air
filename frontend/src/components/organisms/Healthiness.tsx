@@ -8,7 +8,10 @@ import styled from '@mui/material/styles/styled';
 import { MASK } from '@tc/images';
 
 const StyledHealthiness = styled(Box)(({ theme }) => ({
-    padding: `${theme.spacing(12)} 0`,
+    padding: `${theme.spacing(14)} 0`,
+    display: 'flex',
+    alignItems: 'center',
+    minHeight: '100vh'
 }));
 
 const StyledImage = styled('img')(({theme}) => ({
