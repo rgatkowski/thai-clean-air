@@ -1,3 +1,5 @@
+import pycountry
+import unicodedata
 from models import Coordinates
 from fastapi import HTTPException
 
@@ -14,3 +16,25 @@ def validate_coordinates(location_str: str) -> Coordinates:
                 "Expected format: 'latitude,longitude'"
             ),
         )
+
+
+def get_country_alpha2(country_name):
+    """
+    Retrieves the ISO 3166-1 alpha-2 country code for a given country name,
+    after removing any accents from the country name.
+
+    Args:
+        country_name (str): The name of the country.
+
+    Returns:
+        str: The ISO 3166-1 alpha-2 country code, or None if not found.
+    """
+    # Remove accents from the country name
+    country_name = "".join(
+        c
+        for c in unicodedata.normalize("NFD", country_name)
+        if unicodedata.category(c) != "Mn"
+    )
+
+    country = pycountry.countries.get(name=country_name)
+    return country.alpha_2 if country else None
