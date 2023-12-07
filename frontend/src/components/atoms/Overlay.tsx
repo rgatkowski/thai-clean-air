@@ -10,7 +10,7 @@ interface OverlayProps {
 const StyledCanvas = styled('canvas')(() => ({
     width: '100vw',
     height: '100vh',
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     left: 0,
     userSelect: 'none',
