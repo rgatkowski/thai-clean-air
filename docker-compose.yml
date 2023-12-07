@@ -6,7 +6,8 @@ services:
       dockerfile: docker/backend.Dockerfile
     tty: true
     volumes:
-      - ./backend:/backend
+      - ./backend:/app
+      - ./scripts:/app/scripts
     env_file:
       - .env
     ports:

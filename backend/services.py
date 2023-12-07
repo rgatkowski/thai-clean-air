@@ -2,6 +2,8 @@ import requests
 from datetime import datetime, timedelta
 from fastapi_cache.decorator import cache
 from requests.exceptions import RequestException
+
+from bedrock import BedrockService
 from utils import get_country_alpha2, validate_coordinates
 
 
@@ -59,7 +61,7 @@ async def cached_get_articles(location: str, language: str) -> dict:
 
 
 @cache(expire=60)
-async def cached_get_measures(location: str, limit: str) -> list:
+async def cached_get_measures(location: str, limit: str) -> dict:
     """
     Fetches and caches pollution measures based on location.
 
@@ -113,41 +115,21 @@ def get_bedrock_response(city, country, language):
     Returns:
     dict: A dictionary containing detailed responses for each impact category.
     """
-    # TODO: Implement the logic to customize responses based on
-    # city and country. Consulted in query language.
-    # Currently, the responses are static and specific to Poland.
 
     # Articles describing the impacts of PM2.5 pollution in various categories
+    llm = BedrockService()
     return {
-        "short-term": (
-            "In Poland, PM2.5 pollution can quickly cause "
-            "breathing difficulties, triggering asthma and "
-            "allergies. It's like an invisible fog that can make "
-            "our cities smell bad and turn our daily walks or "
-            "outdoor activities into unhealthy."
-            "experiences."
+        "short-term": llm.get_article(
+            "short-term", city=city, country=country, pm25=39.2
         ),
-        "long-term": (
-            "Over time, PM2.5 pollution in Poland can lead to "
-            "serious long-term health issues. It's not just about "
-            "coughs or colds; these tiny particles can "
-            "contribute to heart diseases and affect the health of "
-            "unborn children, impacting future generations."
+        "long-term": llm.get_article(
+            "long-term", city=city, country=country, pm25=39.2
         ),
-        "environment": (
-            "PM2.5 affects not just us, but also Poland's natural "
-            "beauty. It can harm animals, weaken plants, and "
-            "damage crops. Imagine our beautiful forests and "
-            "fields suffering under a cloud of pollution, leading "
-            "to issues like acid rain that harm our environment."
+        "environment": llm.get_article(
+            "environment", city=city, country=country, pm25=39.2
         ),
-        "global-warming": (
-            "These tiny PM2.5 particles in Poland also "
-            "contribute to global warming. They might seem "
-            "small, but they have a big impact on our climate, "
-            "leading to more extreme weather like hotter "
-            "summers and colder winters, changing the way we "
-            "experience our seasons."
+        "global-warming": llm.get_article(
+            "global-warming", city=city, country=country, pm25=39.2
         ),
     }
 
@@ -204,9 +186,7 @@ def get_measures_from_openaq(city: str, country: str, limit: int) -> dict:
         return response.json()
 
     current_date = datetime.now().strftime("%Y-%m-%d")
-    date_5_years_ago = (datetime.now() - timedelta(days=5 * 365)).strftime(
-        "%Y-%m-%d"
-    )
+    date_5_years_ago = datetime.now() - timedelta(days=5 * 365)
     country_alpha = get_country_alpha2(country)
 
     data = fetch_data(city)
@@ -221,7 +201,7 @@ def get_measures_from_openaq(city: str, country: str, limit: int) -> dict:
         "country": country,
         "country_alpha": country_alpha,
         "city": city,
-        "date_from": date_5_years_ago,
+        "date_from": date_5_years_ago.strftime("%Y-%m-%d"),
         "date_to": current_date,
         "results": measures,
     }
