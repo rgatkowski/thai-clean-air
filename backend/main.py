@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Query, Response
 from fastapi.responses import JSONResponse, PlainTextResponse
+from typing import Optional
 from services import (
         get_articles_from_location,
         get_city_country_from_coordinates
@@ -35,8 +36,12 @@ def robots() -> str:
 async def get_articles(
     location: str = Query(
             ...,
-            description="Get articles list",
-            example="Lat,Long")
+            description="Host location coordinates",
+            example="Lat,Long"),
+    language: Optional[str] = Query(
+            'english',
+            description="Desired articles language",
+            example="english")
         ):
     # Check location input is a valid coordinate tuple
     coordinates = validate_coordinates(location) if location else None
@@ -44,4 +49,4 @@ async def get_articles(
     location = get_city_country_from_coordinates(
         coordinates.lat, coordinates.lon)
 
-    return get_articles_from_location(location)
+    return get_articles_from_location(location, language)

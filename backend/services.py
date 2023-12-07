@@ -34,12 +34,13 @@ def get_city_country_from_coordinates(lat: float, lon: float) -> dict:
         return {"city": None, "country": None}
 
 
-def get_articles_from_location(location):
+def get_articles_from_location(location, language):
     """
     Retrieves pollution-related articles based on a specified location.
 
     Parameters:
     location (dict): A dictionary containing the 'city' and 'country' keys.
+    language (str): String that will be used for articles language
 
     Returns:
     dict: A dictionary containing pollution-related articles for each category.
@@ -49,22 +50,23 @@ def get_articles_from_location(location):
     country = location.get('country', 'Poland')
 
     # Call to a function that generates responses based on city and country
-    return get_bedrock_response(city, country)
+    return get_bedrock_response(city, country, language)
 
 
-def get_bedrock_response(city, country):
+def get_bedrock_response(city, country, language):
     """
     Generates pollution impact-related articles for a given city and country.
 
     Parameters:
     city (str): The name of the city.
     country (str): The name of the country.
+    language (str): The name of the language.
 
     Returns:
     dict: A dictionary containing detailed responses for each impact category.
     """
     # TODO: Implement the logic to customize responses based on
-    # city and country.
+    # city and country. Consulted in query language.
     # Currently, the responses are static and specific to Poland.
 
     # Articles describing the impacts of PM2.5 pollution in various categories
