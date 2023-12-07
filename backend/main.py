@@ -1,11 +1,17 @@
+from hashlib import sha256
+from os import getenv
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Query, Response
+from dotenv import load_dotenv
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Response
 from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 from services import cached_get_articles, cached_get_measures
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Application version
 version = "0.0.1"
@@ -19,6 +25,26 @@ app = FastAPI(
     ),
     version=version,
 )
+
+
+# Function to generate SHA-256 hash
+def generate_api_key(secret_text: str, secret_key: str) -> str:
+    return sha256(f"{secret_text}{secret_key}".encode()).hexdigest()
+
+
+# Generate API Key
+SECRET_TEXT = getenv("SECRET_TEXT")
+SECRET_KEY = getenv("SECRET_KEY")
+API_KEY = generate_api_key(SECRET_TEXT, SECRET_KEY)
+
+
+def api_key_dependency(x_api_key: str = Header(...)):
+    """
+    Dependency function to authenticate API key in request headers.
+    """
+    if x_api_key != API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid API key")
+    return x_api_key
 
 
 @app.on_event("startup")
@@ -78,6 +104,7 @@ async def get_articles(
     language: Optional[str] = Query(
         "english", description="Desired articles language", example="english"
     ),
+    x_api_key: str = Depends(api_key_dependency),
 ):
     """
     Endpoint to retrieve articles based on location coordinates and language.
@@ -92,6 +119,7 @@ async def get_measures(
         ..., description="Host location coordinates", example="Lat,Long"
     ),
     limit: str = Query(..., description="Max results limit", example="100"),
+    x_api_key: str = Depends(api_key_dependency),
 ):
     """
     Endpoint to retrieve pollution measures based on location coordinates.

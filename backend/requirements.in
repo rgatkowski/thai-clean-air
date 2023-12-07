@@ -6,6 +6,7 @@ uvicorn
 langchain
 boto3
 pycountry
+python-dotenv
 
 # dev requirements
 black
