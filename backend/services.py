@@ -17,8 +17,10 @@ def get_city_country_from_coordinates(lat: float, lon: float) -> dict:
     dict: Dictionary containing city and country of the given coordinates.
     Returns None for both if not found or in case of an error.
     """
-    url = ("https://nominatim.openstreetmap.org/reverse?"
-           f"lat={lat}&lon={lon}&format=json")
+    url = (
+        "https://nominatim.openstreetmap.org/reverse?"
+        f"lat={lat}&lon={lon}&format=json"
+    )
 
     try:
         response = requests.get(url)
@@ -49,8 +51,9 @@ async def cached_get_articles(location: str, language: str) -> dict:
         dict: A dictionary containing cached articles.
     """
     coordinates = validate_coordinates(location)
-    location_info = get_city_country_from_coordinates(
-        coordinates.lat, coordinates.lon)
+    lat = coordinates.lat
+    lon = coordinates.lon
+    location_info = get_city_country_from_coordinates(lat, lon)
     return get_articles_from_location(location_info, language)
 
 
@@ -66,8 +69,8 @@ def get_articles_from_location(location, language):
     dict: A dictionary containing pollution-related articles for each category.
     """
     # Default values for city and country if not provided in location dict
-    city = location.get('city', 'Poznan')
-    country = location.get('country', 'Poland')
+    city = location.get("city", "Poznan")
+    country = location.get("country", "Poland")
 
     # Call to a function that generates responses based on city and country
     return get_bedrock_response(city, country, language)
@@ -91,26 +94,34 @@ def get_bedrock_response(city, country, language):
 
     # Articles describing the impacts of PM2.5 pollution in various categories
     return {
-        'short-term': ("In Poland, PM2.5 pollution can quickly cause "
-                       "breathing difficulties, triggering asthma and "
-                       "allergies. It's like an invisible fog that can make "
-                       "our cities smell bad and turn our daily walks or "
-                       "outdoor activities into unhealthy."
-                       "experiences."),
-        'long-term': ("Over time, PM2.5 pollution in Poland can lead to "
-                      "serious long-term health issues. It's not just about "
-                      "coughs or colds; these tiny particles can "
-                      "contribute to heart diseases and affect the health of "
-                      "unborn children, impacting future generations."),
-        'environment': ("PM2.5 affects not just us, but also Poland's natural "
-                        "beauty. It can harm animals, weaken plants, and "
-                        "damage crops. Imagine our beautiful forests and "
-                        "fields suffering under a cloud of pollution, leading "
-                        "to issues like acid rain that harm our environment."),
-        'global-warming': ("These tiny PM2.5 particles in Poland also "
-                           "contribute to global warming. They might seem "
-                           "small, but they have a big impact on our climate, "
-                           "leading to more extreme weather like hotter "
-                           "summers and colder winters, changing the way we "
-                           "experience our seasons.")
+        "short-term": (
+            "In Poland, PM2.5 pollution can quickly cause "
+            "breathing difficulties, triggering asthma and "
+            "allergies. It's like an invisible fog that can make "
+            "our cities smell bad and turn our daily walks or "
+            "outdoor activities into unhealthy."
+            "experiences."
+        ),
+        "long-term": (
+            "Over time, PM2.5 pollution in Poland can lead to "
+            "serious long-term health issues. It's not just about "
+            "coughs or colds; these tiny particles can "
+            "contribute to heart diseases and affect the health of "
+            "unborn children, impacting future generations."
+        ),
+        "environment": (
+            "PM2.5 affects not just us, but also Poland's natural "
+            "beauty. It can harm animals, weaken plants, and "
+            "damage crops. Imagine our beautiful forests and "
+            "fields suffering under a cloud of pollution, leading "
+            "to issues like acid rain that harm our environment."
+        ),
+        "global-warming": (
+            "These tiny PM2.5 particles in Poland also "
+            "contribute to global warming. They might seem "
+            "small, but they have a big impact on our climate, "
+            "leading to more extreme weather like hotter "
+            "summers and colder winters, changing the way we "
+            "experience our seasons."
+        ),
     }

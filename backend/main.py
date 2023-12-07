@@ -12,9 +12,11 @@ version = "0.0.1"
 # Initialize FastAPI application with metadata
 app = FastAPI(
     title="STX Next - Thailand Clean Air Network",
-    description=("Backend API that serves NextJS application data. "
-                 "Developed by STX Next Team for the HTTR Challenge."),
-    version=version
+    description=(
+        "Backend API that serves NextJS application data. "
+        "Developed by STX Next Team for the HTTR Challenge."
+    ),
+    version=version,
 )
 
 
@@ -23,8 +25,9 @@ async def startup():
     """
     Application startup event handler to initialize the Redis cache.
     """
-    redis = aioredis.from_url("redis://redis:6379", encoding="utf8",
-                              decode_responses=True)
+    redis = aioredis.from_url(
+        "redis://redis:6379", encoding="utf8", decode_responses=True
+    )
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
 
 
@@ -69,14 +72,12 @@ async def test_redis():
 @app.get("/articles")
 async def get_articles(
     location: str = Query(
-            ...,
-            description="Host location coordinates",
-            example="Lat,Long"),
+        ..., description="Host location coordinates", example="Lat,Long"
+    ),
     language: Optional[str] = Query(
-            'english',
-            description="Desired articles language",
-            example="english")
-        ):
+        "english", description="Desired articles language", example="english"
+    ),
+):
     """
     Endpoint to retrieve articles based on location coordinates and language.
     Applies caching to improve performance on repeated requests.
