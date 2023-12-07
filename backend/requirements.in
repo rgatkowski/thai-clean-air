@@ -1,3 +1,8 @@
 # production requirements
 fastapi
+fastapi-cache2
+redis
 uvicorn
+langchain
+boto3
+pycountry

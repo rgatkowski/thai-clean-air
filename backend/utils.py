@@ -32,7 +32,7 @@ def get_country_alpha2(country_name):
     # Remove accents from the country name
     country_name = "".join(
         c
-        for c in unicodedata.normalize("NFD", country_name)
+        for c in unicodedata.normalize("NFD", country_name or "")
         if unicodedata.category(c) != "Mn"
     )
 
