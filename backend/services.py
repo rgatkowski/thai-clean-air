@@ -1,7 +1,8 @@
 import requests
+from datetime import datetime, timedelta
 from fastapi_cache.decorator import cache
 from requests.exceptions import RequestException
-from utils import validate_coordinates
+from utils import get_country_alpha2, validate_coordinates
 
 
 def get_city_country_from_coordinates(lat: float, lon: float) -> dict:
@@ -55,6 +56,30 @@ async def cached_get_articles(location: str, language: str) -> dict:
     lon = coordinates.lon
     location_info = get_city_country_from_coordinates(lat, lon)
     return get_articles_from_location(location_info, language)
+
+
+@cache(expire=60)
+async def cached_get_measures(location: str, limit: str) -> list:
+    """
+    Fetches and caches pollution measures based on location.
+
+    Args:
+        location (str): Location coordinates as string.
+        limit (str): Max results limit
+
+    Returns:
+        list: A list of objects of pollution measures
+    """
+    coordinates = validate_coordinates(location)
+    lat = coordinates.lat
+    lon = coordinates.lon
+    location_info = get_city_country_from_coordinates(lat, lon)
+    try:
+        limit = int(limit)
+    except (TypeError, ValueError):
+        limit = 100
+        pass
+    return get_measures_from_location(location_info, limit)
 
 
 def get_articles_from_location(location, language):
@@ -125,3 +150,101 @@ def get_bedrock_response(city, country, language):
             "experience our seasons."
         ),
     }
+
+
+def get_measures_from_location(location, limit):
+    """
+    Retrieves pollution measures based on a specified location
+    (city and country).
+
+    Parameters:
+    location (dict): A dictionary containing the 'city' and 'country' keys.
+    limit (int): Max results limit
+
+    Returns:
+    list: A list of dicts with the measured parameter and measured value.
+    """
+    # Default values for city and country if not provided in location dict
+    city = location.get("city", "Poznan")
+    country = location.get("country", "Poland")
+
+    return get_measures_from_openaq(city, country, limit)
+
+
+def get_measures_from_openaq(city: str, country: str, limit: int) -> dict:
+    """
+    Fetches air quality measurements from the OpenAQ API for a given
+    city and country.
+
+    Args:
+        city (str): The name of the city.
+        country (str): The name of the country.
+        limit (int): The maximum number of records to fetch.
+
+    Returns:
+        dict: A dictionary containing the air quality measurements.
+    """
+
+    def fetch_data(city):
+        response = requests.get(
+            "https://api.openaq.org/v2/measurements",
+            params={
+                "date_from": date_5_years_ago,
+                "date_to": current_date,
+                "limit": limit,
+                "page": "1",
+                "offset": "0",
+                "sort": "desc",
+                "radius": "1000",
+                "country": country_alpha,
+                "city": city,
+                "order_by": "datetime",
+            },
+        )
+        return response.json()
+
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    date_5_years_ago = (datetime.now() - timedelta(days=5 * 365)).strftime(
+        "%Y-%m-%d"
+    )
+    country_alpha = get_country_alpha2(country)
+
+    data = fetch_data(city)
+    measures = process_results(data.get("results", []))
+
+    # Retry with city=None if no measures found
+    if not measures:
+        data = fetch_data(None)
+        measures = process_results(data.get("results", []))
+
+    return {
+        "country": country,
+        "country_alpha": country_alpha,
+        "city": city,
+        "date_from": date_5_years_ago,
+        "date_to": current_date,
+        "results": measures,
+    }
+
+
+def process_results(results):
+    """
+    Processes the results from the OpenAQ API response.
+
+    Args:
+        results (list): The list of measurement results.
+
+    Returns:
+        dict: A dictionary of processed measurements.
+    """
+    measures = {}
+    for result in results:
+        parameter = result.get("parameter", "")
+        if parameter:
+            measures.setdefault(parameter, []).append(
+                {
+                    "value": result.get("value", ""),
+                    "date": result.get("date", {}).get("utc", ""),
+                }
+            )
+    return measures

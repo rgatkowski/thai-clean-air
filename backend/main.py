@@ -4,7 +4,7 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 from typing import Optional
-from services import cached_get_articles
+from services import cached_get_articles, cached_get_measures
 
 # Application version
 version = "0.0.1"
@@ -83,3 +83,17 @@ async def get_articles(
     Applies caching to improve performance on repeated requests.
     """
     return await cached_get_articles(location, language)
+
+
+@app.get("/measures")
+async def get_measures(
+    location: str = Query(
+        ..., description="Host location coordinates", example="Lat,Long"
+    ),
+    limit: str = Query(..., description="Max results limit", example="100"),
+):
+    """
+    Endpoint to retrieve pollution measures based on location coordinates.
+    Applies caching to improve performance on repeated requests.
+    """
+    return await cached_get_measures(location, limit)
