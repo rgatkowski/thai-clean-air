@@ -14,7 +14,7 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
    ```
    
 ...and adjust required values in the `.env` file:
-* `AWS_REGION` - AWS region, default: ``
+* `AWS_REGION` - AWS region, default: `us-east-1`
 * `AWS_ACCESS_KEY` - AWS Access Key ID 
 * `AWS_SECRET_ACCESS_KEY` - AWS Secret Access Key
 
