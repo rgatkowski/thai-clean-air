@@ -5,6 +5,7 @@ import Overlay from '@tc/atoms/Overlay';
 import Hero from '@tc/organisms/Hero';
 import Healthiness from '@tc/organisms/Healthiness';
 import Environment from '@tc/organisms/Environment';
+import Solutions from '@tc/organisms/Solutions';
 import ArticlesPage from '@tc/organisms/ArticlePage';
 
 import useGetLocation from '@tc/utils/useGetLocation';
@@ -44,6 +45,7 @@ export default function Home() {
       <Hero />
       <Healthiness />
       <Environment />
+      <Solutions />
       <Overlay particlesNumber={10} />
       <ArticlesPage articles={articles} />
     </>
