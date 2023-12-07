@@ -1,7 +1,7 @@
 import { IArticles } from '@tc/types/commonTypes';
 
 interface ArticlesPageProps {
-  articles: IArticles;
+  articles?: IArticles;
 }
 
 const ArticlesPage = ({ articles }: ArticlesPageProps) => {

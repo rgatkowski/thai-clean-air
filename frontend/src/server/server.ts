@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const server = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: process.env.API_ENDPOINT,
   headers: {
     'Content-Type': 'application/json',
+    'x-api-key': process.env.API_KEY,
   },
 });
 

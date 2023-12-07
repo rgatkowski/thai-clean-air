@@ -1,27 +1,48 @@
-import { IArticles } from '@tc/types/commonTypes';
+import { IArticles, IPm25LocationMeasures } from '@tc/types/commonTypes';
 import server from './server';
 
-export async function getPm25ForUsersLocation(latitude: number, longitude: number): Promise<number> {
-  const response = await server.get('/measures', {
+interface IMeasuresResponse {
+  country: string;
+  country_alpha: string;
+  city: string;
+  date_from: string;
+  date_to: string;
+  results: {
+    value: string;
+    date: string;
+  };
+}
+
+export async function getPm25ForUsersLocation(latitude: number, longitude: number): Promise<IPm25LocationMeasures> {
+  const response: IMeasuresResponse = await server.get('/measures', {
     params: {
       location: `${latitude},${longitude}`,
       limit: 10,
     },
   });
 
-  //TODO add adapter
+  const {
+    city,
+    country,
+    results: { value: pm25 },
+  } = response;
 
-  return 0;
+  return {
+    city,
+    country,
+    pm25,
+  };
 }
 
-export async function getArticles(pm25value: number): Promise<IArticles> {
-  const response = await server.get('/articles', {
-    params: {
-      pm25value,
-    },
+export async function getArticles(params: IPm25LocationMeasures): Promise<IArticles> {
+  const response: Record<string, string> = await server.get('/articles', {
+    params: params,
   });
 
-  //TODO add adapter
-
-  return {};
+  return {
+    shortTermHealth: response['short-term'],
+    longTermHealth: response['long-term'],
+    environment: response['environment'],
+    globalWarming: response['global-warming'],
+  };
 }

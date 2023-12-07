@@ -13,29 +13,34 @@ import { IArticles } from '@tc/types/commonTypes';
 
 export default function Home() {
   const [latitude, longitude] = useGetLocation();
-  const [pm25value, setPm25value] = useState<number>(defaultPM25Value);
-  const [articles, setArticles] = useState<IArticles>({});
+
+  const [pm25, setPm25] = useState(defaultPM25Value);
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [articles, setArticles] = useState<IArticles>();
 
   useEffect(() => {
     if (latitude && longitude) {
       getPm25ForUsersLocation(latitude, longitude).then((res) => {
-        setPm25value(res);
+        setPm25(res.pm25);
+        setCountry(res.country);
+        setCity(res.city);
       });
     }
   }, [latitude, longitude]);
 
   useEffect(() => {
-    if (pm25value && pm25value > 0) {
-      getArticles(pm25value).then((res) => {
+    if (pm25 && city && country && pm25) {
+      getArticles({ pm25, city, country }).then((res) => {
         setArticles(res);
       });
     }
-  }, [pm25value]);
+  }, [city, country, pm25]);
 
   return (
     <>
       <Typography variant="h1">Lets make some test</Typography>
-      <Overlay particlesNumber={pm25value} />
+      <Overlay particlesNumber={parseInt(pm25)} />
       <ArticlesPage articles={articles} />
     </>
   );
