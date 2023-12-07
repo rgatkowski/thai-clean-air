@@ -1,5 +1,7 @@
 import requests
+from fastapi_cache.decorator import cache
 from requests.exceptions import RequestException
+from utils import validate_coordinates
 
 
 def get_city_country_from_coordinates(lat: float, lon: float) -> dict:
@@ -32,6 +34,24 @@ def get_city_country_from_coordinates(lat: float, lon: float) -> dict:
 
     except RequestException:
         return {"city": None, "country": None}
+
+
+@cache(expire=60)
+async def cached_get_articles(location: str, language: str) -> dict:
+    """
+    Fetches and caches articles based on location and language.
+
+    Args:
+        location (str): Location as a string.
+        language (str): Language of the articles.
+
+    Returns:
+        dict: A dictionary containing cached articles.
+    """
+    coordinates = validate_coordinates(location)
+    location_info = get_city_country_from_coordinates(
+        coordinates.lat, coordinates.lon)
+    return get_articles_from_location(location_info, language)
 
 
 def get_articles_from_location(location, language):

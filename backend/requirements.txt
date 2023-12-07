@@ -16,6 +16,7 @@ exceptiongroup==1.2.0
     # via anyio
 fastapi==0.104.1
     # via -r requirements.in
+fastapi-cache2[redis]==0.2.1
 h11==0.14.0
     # via uvicorn
 idna==3.6

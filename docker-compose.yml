@@ -12,3 +12,15 @@ services:
     ports:
       - "${PORT}:${PORT}"
     command: "./scripts/run_backend.sh"
+    depends_on:
+      - redis  # Ensure backend depends on Redis
+
+  redis:
+    image: "redis:latest"  # Use the latest Redis image
+    ports:
+      - "6379:6379"  # Map default Redis port
+    volumes:
+      - redis_data:/data  # Persistent Redis data
+
+volumes:
+  redis_data:

@@ -28,6 +28,7 @@ exceptiongroup==1.2.0
     #   anyio
 fastapi==0.104.1
     # via -r requirements.txt
+fastapi-cache2[redis]==0.2.1
 flake8==6.1.0
     # via -r dev-requirements.in
 idna==3.6
