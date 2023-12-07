@@ -5,7 +5,6 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
-
 from services import cached_get_articles, cached_get_measures
 
 # Application version

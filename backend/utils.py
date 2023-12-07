@@ -2,7 +2,6 @@ import unicodedata
 
 import pycountry
 from fastapi import HTTPException
-
 from models import Coordinates
 
 

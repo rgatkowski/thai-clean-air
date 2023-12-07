@@ -1,10 +1,9 @@
 from datetime import datetime, timedelta
 
 import requests
+from bedrock import BedrockService
 from fastapi_cache.decorator import cache
 from requests.exceptions import RequestException
-
-from bedrock import BedrockService
 from utils import get_country_alpha2, validate_coordinates
 
 
