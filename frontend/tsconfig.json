@@ -24,13 +24,11 @@
       "@tc/molecules/*": ["./src/components/molecules/*"],
       "@tc/organisms/*": ["./src/components/organisms/*"],
       "@tc/themes/*": ["./src/themes/*"],
-      "@tc/props*": ["./src/constants/props"],
-      "@tc/stores*": ["./src/stores/*"],
       "@tc/images*": ["./src/constants/images"],
-      "@tc/urls*": ["./src/constants/urls"],
-      "@tc/data/*": ["./src/data/*"],
       "@tc/server/*": ["./src/server/*"],
       "@tc/utils/*": ["./src/utils/*"],
+      "@tc/constants/*": ["./src/constants/*"],
+      "@tc/types/*": ["./src/types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
