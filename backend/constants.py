@@ -1,3 +1,6 @@
+DEFAULT_BEDROCK_TEMPLATE = (
+    "The current air quality in {city}, " "{country} is: {pn25}"
+)
 BEDROCK_TEMPLATES = {
     "short-term": """
 The current air quality in {city}, {country} is:
@@ -5,7 +8,7 @@ The current air quality in {city}, {country} is:
 
 Based on the current Air quality, what is the short term impact to my health?
 The response should be in 3 sentences.
-Start with: "The air quality in ... is ..."
+Start with: "The air quality in your location is ..."
         """,
     "long-term": """
 The current air quality in {city}, {country} is:

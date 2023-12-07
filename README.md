@@ -22,6 +22,16 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
 ### Run project
    `docker-compose up`
 
+## Testing
+### Backend
+Easiest - via Docker:
+```shell
+docker-compose up
+docker exec -it thai-clean-air_backend_1 bash
+# inside docker:
+python -m pytest
+```
+
 ### Enjoy
 `http://localhost:8000`
 

@@ -15,6 +15,7 @@ services:
     command: "./scripts/run_backend.sh"
     depends_on:
       - redis  # Ensure backend depends on Redis
+    restart: always
 
   redis:
     image: "redis:latest"  # Use the latest Redis image
