@@ -95,7 +95,7 @@ def get_bedrock_response(city, country, language):
                        "breathing difficulties, triggering asthma and "
                        "allergies. It's like an invisible fog that can make "
                        "our cities smell bad and turn our daily walks or "
-                       "outdoor activities into unhealthy "
+                       "outdoor activities into unhealthy."
                        "experiences."),
         'long-term': ("Over time, PM2.5 pollution in Poland can lead to "
                       "serious long-term health issues. It's not just about "
