@@ -1,4 +1,4 @@
 export const SMOKE = {
-    src: '/smoke.png',
-    alt: 'transparent smoke image',
+  src: '/smoke.png',
+  alt: 'transparent smoke image',
 };
