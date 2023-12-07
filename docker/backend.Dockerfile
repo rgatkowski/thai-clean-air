@@ -6,6 +6,6 @@ WORKDIR /app
 COPY ./backend .
 COPY ./scripts scripts
 
-RUN pip install --no-deps --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 CMD ["./scripts/run_backend.sh"]
