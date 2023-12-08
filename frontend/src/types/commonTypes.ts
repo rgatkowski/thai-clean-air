@@ -1,12 +1,12 @@
-export interface IArticles {
-  shortTermHealth: string;
-  longTermHealth: string;
-  environment: string;
-  globalWarming: string;
-}
-
-export interface IPm25LocationMeasures {
+export interface MeasuresAttributes {
   city: string;
   country: string;
   pm25: string;
+}
+
+export interface ArticlesAttributes {
+  healthiness: string,
+  environment: string,
+  solutions: string,
+  justice: string,
 }

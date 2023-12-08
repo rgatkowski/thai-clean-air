@@ -126,17 +126,17 @@ def get_bedrock_response(city, country, language, pm_measure):
     # Articles describing the impacts of PM2.5 pollution in various categories
     llm = BedrockService()
     return {
-        "short-term": llm.get_article(
-            "short-term", city=city, country=country, pm25=pm_measure
-        ),
-        "long-term": llm.get_article(
-            "long-term", city=city, country=country, pm25=pm_measure
+        "healthiness": llm.get_article(
+            "healthiness", city=city, country=country, pm25=pm_measure
         ),
         "environment": llm.get_article(
             "environment", city=city, country=country, pm25=pm_measure
         ),
-        "global-warming": llm.get_article(
-            "global-warming", city=city, country=country, pm25=pm_measure
+        "solutions": llm.get_article(
+            "solutions", city=city, country=country, pm25=pm_measure
+        ),
+        "justice": llm.get_article(
+            "justice", city=city, country=country, pm25=pm_measure
         ),
     }
 

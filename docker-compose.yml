@@ -12,7 +12,7 @@ services:
       - .env
     ports:
       - "${PORT}:${PORT}"
-    command: "./scripts/run_backend.sh"
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
     depends_on:
       - redis  # Ensure backend depends on Redis
     restart: always

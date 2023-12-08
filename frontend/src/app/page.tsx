@@ -12,8 +12,8 @@ import Justice from '@tc/organisms/Justice';
 import useGetLocation from '@tc/utils/useGetLocation';
 
 import { defaultPM25Value } from '@tc/constants/defaultValues';
-import { getArticles, getPm25ForUsersLocation } from '@tc/server/APIrequests';
-import { IArticles } from '@tc/types/commonTypes';
+import { readMeasures, readArticles } from '@tc/server/APIrequests';
+import { ArticlesAttributes } from '@tc/types/commonTypes';
 
 export default function Home() {
   const [latitude, longitude] = useGetLocation();
@@ -21,7 +21,7 @@ export default function Home() {
   const [pm25, setPm25] = useState(defaultPM25Value);
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
-  const [articles, setArticles] = useState<IArticles>();
+  const [articles, setArticles] = useState<ArticlesAttributes>();
 
   const clearOverlay = () => {
     setPm25('0');
@@ -29,7 +29,7 @@ export default function Home() {
 
   useEffect(() => {
     if (latitude && longitude) {
-      getPm25ForUsersLocation(latitude, longitude).then((res) => {
+      readMeasures(latitude, longitude).then((res) => {
         setPm25(res.pm25);
         setCountry(res.country);
         setCity(res.city);
@@ -38,21 +38,20 @@ export default function Home() {
   }, [latitude, longitude]);
 
   useEffect(() => {
-    if (pm25 && city && country && pm25) {
-      getArticles({ pm25, city, country }).then((res) => {
-        setArticles(res);
+    if (latitude && longitude) {
+      readArticles(latitude, longitude).then((res) => {
+        setArticles(res)
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [city, country]);
+  }, [latitude, longitude]);
 
   return (
     <>
       <Hero city={city} />
-      <Healthiness text={articles?.shortTermHealth} />
+      <Healthiness text={articles?.healthiness} />
       <Environment text={articles?.environment} />
-      <Solutions text={articles?.globalWarming} />
-      <Justice text={articles?.longTermHealth} />
+      <Solutions text={articles?.solutions} />
+      <Justice text={articles?.justice} />
       <Footer clearOverlay={clearOverlay} />
       <Overlay particlesNumber={parseInt(pm25)} />
     </>
