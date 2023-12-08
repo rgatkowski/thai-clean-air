@@ -1,25 +1,16 @@
 import { Button, Typography, styled } from '@mui/material';
 import { Box, Container } from '@mui/system';
 
-const StyledSignThePetition = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  marginLeft: 'auto',
-  marginRight: 'auto',
+const StyledInfo = styled(Box)(({ theme }) => ({
+  padding: `${theme.spacing(6)} ${theme.spacing(4)}`,
   textAlign: 'center',
+  margin: '0 auto',
+  borderRadius: 20,
   backdropFilter: 'blur(4px)',
-  borderRadius: '30px',
-  padding: '15px',
+  boxShadow: 'box-shadow: -10px 15px 15px 10px rgba(0,0,0,0.3)',
+  background: 'rgba(255, 255, 255, 0.1)',
   zIndex: '999',
 }));
-
-const StyledButton = styled(Button)(() => ({
-  marginTop: '30px',
-  minWidth: '40%',
-}));
-
-const StyledBackground = styled(Box)(() => ({}));
 
 interface ISignThePetitionProps {
   clearOverlay: () => void;
@@ -29,28 +20,25 @@ const SignThePetition = ({ clearOverlay }: ISignThePetitionProps) => {
   const goToThePetition = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     clearOverlay();
     e.preventDefault();
-    setTimeout(() => (window.location.href = 'https://thailandcan.org/'), 2000);
+    setTimeout(() => window.open('https://thailandcan.org/', '_blank'), 2000);
   };
 
   return (
-    <StyledSignThePetition>
-      <Container maxWidth="lg">
-        <StyledBackground>
-          <Typography variant="h1" color="info" mb={4}>
-            Sign the petition
-          </Typography>
-        </StyledBackground>
-        <StyledButton
-          onClick={(e) => goToThePetition(e)}
-          href="https://thailandcan.org/"
-          variant="contained"
-          color="secondary"
-          size="large"
-        >
-          HERE
-        </StyledButton>
-      </Container>
-    </StyledSignThePetition>
+  <Container maxWidth="md">
+    <StyledInfo>
+      <Typography variant="h1" color="info.main" mb={4}>
+        Sign the petition
+      </Typography>
+      <Button
+        onClick={(e) => goToThePetition(e)}
+        variant="contained"
+        color="secondary"
+        size="large"
+      >
+        Stop the smoke
+      </Button>
+    </StyledInfo>
+  </Container>
   );
 };
 

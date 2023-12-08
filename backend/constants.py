@@ -7,34 +7,34 @@ The current air quality in {city}, {country} is:
  -pm25: {pm25}
 
 Based on the current Air quality, what is the impact to my health?
-The response should be in 3 sentences and should contain an instance of #StopTheSmoke hashtag.
-Start with: "The air quality in your location is ..."
+The response should be in 3 sentences.
+Start with: "The impact of air quality on your health can be"
         """,
 
     "environment": """
 The current air quality in {city}, {country} is:
  -pm25: {pm25}
 
-Based on the current Air quality, what is the long term impact to my health?
+Based on the current Air quality, what is the impact to the environment?
 The response should be in 3 sentences.
-Start with: "The long-term impact of air quality on health can be"
+Start with: "The impact of air quality to the environment is"
         """,
         
     "solutions": """
 The current air quality in {city}, {country} is:
  -pm25: {pm25}
 
-Based on the current Air quality, what is the impact to the environment?
+Based on the current Air quality, why do we need solutions?
 The response should be in 3 sentences.
-Start with: "The impact to the environment is"
+Start with: "We need solutions to the air quality status because"
         """,
 
     "justice": """
 The current air quality in {city}, {country} is:
  -pm25: {pm25}
 
-Based on the current Air quality, what is the impact to global warming?
+Based on the current Air quality, how can we obtain justice?
 The response should be in 3 sentences.
-Start with: "The impact to the global warming is"
+Start with: "We can aim to obtain justice via"
         """,
 }

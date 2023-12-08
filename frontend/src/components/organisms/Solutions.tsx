@@ -8,7 +8,7 @@ import styled from '@mui/material/styles/styled';
 import { CAR } from '@tc/images';
 
 const StyledSolutions = styled(Box)(({ theme }) => ({
-    padding: `${theme.spacing(14)} 0`,
+    padding: `${theme.spacing(14)} 0 ${theme.spacing(7)}`,
     display: 'flex',
     alignItems: 'center',
     minHeight: '100vh',
@@ -50,7 +50,6 @@ const Solutions = ({
 
     return (<StyledSolutions onMouseMove={moveImage}>
         <Container maxWidth='md'>
-           
             <Grid container spacing={4} justifyContent='space-between' alignItems='center'>
                 <Grid item md={5} xs={12}>
                     <StyledImage src={CAR.src} alt={CAR.alt} ref={imageRef} />

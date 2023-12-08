@@ -20,7 +20,6 @@ export default function Home() {
 
   const [pm25, setPm25] = useState(defaultPM25Value);
   const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
   const [articles, setArticles] = useState<ArticlesAttributes>();
 
   const clearOverlay = () => {
@@ -31,7 +30,6 @@ export default function Home() {
     if (latitude && longitude) {
       readMeasures(latitude, longitude).then((res) => {
         setPm25(res.pm25);
-        setCountry(res.country);
         setCity(res.city);
       });
     }

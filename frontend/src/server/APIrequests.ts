@@ -19,5 +19,7 @@ export const readArticles = async (latitude: number, longitude: number) => {
     }
   });
 
+  console.log(articles);
+
   return articles.data;
 }

@@ -1,10 +1,12 @@
 import { Box, styled } from '@mui/system';
-import CitiesImages from '../molecules/CitiesImages';
-import SignThePetition from '../molecules/SignThePetition';
+import CitiesImages from '@tc/molecules/CitiesImages';
+import SignThePetition from '@tc/molecules/SignThePetition';
 
 const StyledFooter = styled(Box)(({ theme }) => ({
+  padding: `${theme.spacing(16)} 0`,
   display: 'flex',
   alignItems: 'center',
+  position: 'relative',
 }));
 
 interface IFooterProps {

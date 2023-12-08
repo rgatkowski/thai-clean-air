@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import styled from '@mui/material/styles/styled';
 
 const StyledJustice = styled(Box)(({ theme }) => ({
-  padding: `${theme.spacing(14)} 0`,
+  padding: `${theme.spacing(7)} 0 ${theme.spacing(14)}`,
   display: 'flex',
   alignItems: 'center',
   minHeight: '100vh',
@@ -21,21 +21,17 @@ const Justice = ({
 }: JusticeProps) => {
   return (
     <StyledJustice>
-      <Container maxWidth="xl">
-        <Grid container spacing={4}>
-          <Grid item container spacing={6} xs={6} direction="column">
-            <Grid item alignSelf={'center'}>
-              <Typography variant="h1" color="secondary">
-                we want
+      <Container maxWidth="md">
+        <Grid container spacing={4} alignItems='center'>
+          <Grid item xs={6} textAlign='center' color='primary.main'>
+              <Typography variant="h1" component='p' mb={4}>
+                We want
               </Typography>
-            </Grid>
-            <Grid item alignSelf={'center'}>
-              <Typography variant="h1" color="secondary">
+              <Typography variant="h1" component='h2'>
                 JUSTICE
               </Typography>
-            </Grid>
           </Grid>
-          <Grid item xs={6} alignSelf={'center'}>
+          <Grid item xs={6}>
             <Typography>{text}</Typography>
           </Grid>
         </Grid>
