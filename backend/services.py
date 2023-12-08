@@ -99,18 +99,25 @@ def get_articles_from_location(location, language):
     city = location.get("city", "Poznan")
     country = location.get("country", "Poland")
 
-    # Call to a function that generates responses based on city and country
-    return get_bedrock_response(city, country, language)
+    # Get PM2.5 measure for better bedrock inputs
+    measures = get_measures_from_openaq(city, country, 200)
+    pm_measure = measures.get("results", {}).get("value", "12")
+
+    # Call to a function that generates responses based on city, country
+    # and PM2.5 measure for location
+    return get_bedrock_response(city, country, language, pm_measure)
 
 
-def get_bedrock_response(city, country, language):
+def get_bedrock_response(city, country, language, pm_measure):
     """
-    Generates pollution impact-related articles for a given city and country.
+    Generates pollution impact-related articles for a given city, country,
+    and PM2.5 indicator.
 
     Parameters:
     city (str): The name of the city.
     country (str): The name of the country.
     language (str): The name of the language.
+    pm_measure (float): The measure for PM2.5 parameter.
 
     Returns:
     dict: A dictionary containing detailed responses for each impact category.
@@ -120,16 +127,16 @@ def get_bedrock_response(city, country, language):
     llm = BedrockService()
     return {
         "short-term": llm.get_article(
-            "short-term", city=city, country=country, pm25=39.2
+            "short-term", city=city, country=country, pm25=pm_measure
         ),
         "long-term": llm.get_article(
-            "long-term", city=city, country=country, pm25=39.2
+            "long-term", city=city, country=country, pm25=pm_measure
         ),
         "environment": llm.get_article(
-            "environment", city=city, country=country, pm25=39.2
+            "environment", city=city, country=country, pm25=pm_measure
         ),
         "global-warming": llm.get_article(
-            "global-warming", city=city, country=country, pm25=39.2
+            "global-warming", city=city, country=country, pm25=pm_measure
         ),
     }
 
