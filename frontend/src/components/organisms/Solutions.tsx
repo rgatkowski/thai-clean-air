@@ -5,9 +5,9 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import styled from '@mui/material/styles/styled';
-import { MASK } from '@tc/images';
+import { CAR } from '@tc/images';
 
-const StyledHealthiness = styled(Box)(({ theme }) => ({
+const StyledSolutions = styled(Box)(({ theme }) => ({
     padding: `${theme.spacing(14)} 0`,
     display: 'flex',
     alignItems: 'center',
@@ -26,18 +26,19 @@ const StyledImage = styled('img')(({theme}) => ({
     objectFit: 'contain',
     objectPosition: 'top center',
     border: '5px solid transparent',
-    borderColor: theme.palette.secondary.main,
+    borderColor: theme.palette.info.main,
     borderRadius: '100%',
     transition: 'transform 0.2s ease',
+    margin: '0 auto',
 }));
 
-interface HealthinessProps {
+interface SolutionsProps {
     text?: string;
 }
 
-const Healthiness = ({
-    text = 'Air pollution harms our health and our future. It can damage the development of our children and the unborn children. It can also hurt our economy, our tourism, our agriculture and our natural resources. We need to act now to #StopTheSmoke',
-}: HealthinessProps) => {
+const Solutions = ({
+    text = 'Air pollution can be prevented and reduced by adopting clean and renewable energy sources, improving public transportation, promoting green spaces and recycling, and enforcing environmental regulations.',
+}: SolutionsProps) => {
     const imageRef = useRef(null);
 
     const moveImage = (event: any) => {
@@ -47,15 +48,16 @@ const Healthiness = ({
         image.style.top = event.clientY * -1/100 + 'px';
     }
 
-    return (<StyledHealthiness onMouseMove={moveImage}>
+    return (<StyledSolutions onMouseMove={moveImage}>
         <Container maxWidth='md'>
+           
             <Grid container spacing={4} justifyContent='space-between' alignItems='center'>
-                <Grid item md={5} xs={12} order={{ md:2 }}>
-                    <StyledImage src={MASK.src} alt={MASK.src} ref={imageRef} />
+                <Grid item md={5} xs={12}>
+                    <StyledImage src={CAR.src} alt={CAR.src} ref={imageRef} />
                 </Grid>
-                <Grid item md={6} xs={12} order={{ md: 1 }}>
-                    <Typography variant='h1' component='h2' color='secondary' mb={4}>
-                        We want healthiness
+                <Grid item md={6} xs={12}> 
+                    <Typography variant='h1' component='h2' color='info.main' mb={4}>
+                        We want solutions
                     </Typography>
                     <Typography>
                         {text}
@@ -63,7 +65,7 @@ const Healthiness = ({
                 </Grid>
             </Grid>
         </Container>
-    </StyledHealthiness>);
+    </StyledSolutions>);
 };
 
-export default Healthiness;
+export default Solutions;

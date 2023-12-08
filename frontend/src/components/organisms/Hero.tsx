@@ -10,13 +10,20 @@ const StyledHero = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center',
-    minHeight: '100vh'
+    minHeight: '100vh',
+    overflow: 'hidden'
 }));
 
 const StyledButton = styled(Button)(() => ({
     position: 'relative',
     zIndex: '999',
 }));
+
+const StyledTitle = styled(Typography)(({ theme }) => ({
+    [theme.breakpoints.down('md')]: {
+        fontSize: '2rem',
+    }
+}))
 
 interface HeroProps {
     city?: string;
@@ -27,9 +34,9 @@ const Hero = ({
 }: HeroProps) => (
     <StyledHero>
         <Container maxWidth='lg'>
-            <Typography variant='h1' color='primary' mb={4}>
+            <StyledTitle variant='h1' color='primary' mb={4}>
                 #StopTheSmoke
-            </Typography>
+            </StyledTitle>
             <Typography variant='h3' component='p' mb={6}>
                 We can make {city} change
             </Typography>

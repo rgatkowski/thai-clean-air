@@ -40,7 +40,7 @@ const DefaultTheme = createTheme({
     h1: {
       fontWeight: 400,
       lineHeight: 1.4,
-      fontSize: 'clamp( 4rem, 12vmin, 6rem )',
+      fontSize: 'clamp( 2.5rem, 12vmin, 3.5rem )',
     },
     h2: {
       fontSize: 'clamp( 1.5rem, 5vmin, 2.5rem )',
