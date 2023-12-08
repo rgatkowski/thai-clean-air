@@ -24,6 +24,6 @@ export const CLEANCITY = {
 };
 
 export const CAR = {
-    src: '/car.svg',
+    src: './car.svg',
     alt: 'A car with a posonous cloud, making reference of the environmental damage',
 };
