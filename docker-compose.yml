@@ -17,6 +17,21 @@ services:
       - redis  # Ensure backend depends on Redis
     restart: always
 
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/src/:/frontend/src
+      - ./frontend/public/:/frontend/public
+    env_file:
+      - ./frontend/.env.local
+    ports:
+      - "3000:3000"
+    command: ["npm", "run", "dev"]
+
   redis:
     image: "redis:latest"  # Use the latest Redis image
     ports:

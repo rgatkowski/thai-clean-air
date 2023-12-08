@@ -11,7 +11,7 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
 ### Backend
    Copy `example.backend.env` to `.env`...
    ```shell
-   cp example.env .env
+   cp example.backend.env .env
    ```
    
 ...and adjust required values in the `.env` file:
@@ -20,7 +20,7 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
 * `AWS_SECRET_ACCESS_KEY` - AWS Secret Access Key
 
 #### Frontend
-   Copy `example.frontend.env` to `.env,local` in `./frontend` directory...
+   Copy `example.frontend.env` to `.env.local` in `./frontend` directory...
 
    ...and add api secret:
 * `NEXT_PUBLIC_API_KEY=`
@@ -28,6 +28,9 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
    
 ### Run project
    `docker-compose up`
+
+### Enjoy
+`http://localhost:3000`
 
 ## Testing
 ### Backend
@@ -40,11 +43,10 @@ python -m pytest
 ```
 
 ### Install frontend dependencies
-
+   If you want to run it not in a docker
    run `yarn` in the `./frontend` directory
 
-### Enjoy
-`http://localhost:8000`
+
 
 
 ## License
