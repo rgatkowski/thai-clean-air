@@ -8,7 +8,8 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
    `git clone git@github.com:rgatkowski/thai-clean-air.git`
 
 ### Setup environment file
-   Copy `example.env` to `.env`...
+### Backend
+   Copy `example.backend.env` to `.env`...
    ```shell
    cp example.env .env
    ```
@@ -17,6 +18,12 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
 * `AWS_REGION` - AWS region, default: `us-east-1`
 * `AWS_ACCESS_KEY` - AWS Access Key ID 
 * `AWS_SECRET_ACCESS_KEY` - AWS Secret Access Key
+
+#### Frontend
+   Copy `example.frontend.env` to `.env,local` in `./frontend` directory...
+
+   ...and add api secret:
+* `NEXT_PUBLIC_API_KEY=`
 
    
 ### Run project
@@ -31,6 +38,10 @@ docker exec -it thai-clean-air_backend_1 bash
 # inside docker:
 python -m pytest
 ```
+
+### Install frontend dependencies
+
+   run `yarn` in the `./frontend` directory
 
 ### Enjoy
 `http://localhost:8000`
