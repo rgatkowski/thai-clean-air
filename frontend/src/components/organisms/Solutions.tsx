@@ -53,7 +53,7 @@ const Solutions = ({
            
             <Grid container spacing={4} justifyContent='space-between' alignItems='center'>
                 <Grid item md={5} xs={12}>
-                    <StyledImage src={CAR.src} alt={CAR.src} ref={imageRef} />
+                    <StyledImage src={CAR.src} alt={CAR.alt} ref={imageRef} />
                 </Grid>
                 <Grid item md={6} xs={12}> 
                     <Typography variant='h1' component='h2' color='info.main' mb={4}>
