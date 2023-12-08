@@ -24,7 +24,11 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
 
    ...and add api secret:
 * `NEXT_PUBLIC_API_KEY=`
-   
+
+### Install frontend dependencies
+
+   run `yarn` in the `./frontend` directory
+
 ### Run project
    `docker-compose up`
 
