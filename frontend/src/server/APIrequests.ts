@@ -5,6 +5,7 @@ export const readMeasures = async (latitude: number, longitude: number) => {
   const measures = await server.get<MeasuresAttributes>('/measures', {
     params: {
       location: `${latitude},${longitude}`,
+      limit: 10,
     }
   });
 
