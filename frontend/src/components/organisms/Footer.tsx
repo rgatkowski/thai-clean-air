@@ -13,7 +13,7 @@ interface IFooterProps {
 
 const Footer = ({ clearOverlay }: IFooterProps) => {
   return (
-    <StyledFooter>
+    <StyledFooter id="footer">
       <CitiesImages />
       <SignThePetition clearOverlay={clearOverlay} />
     </StyledFooter>
