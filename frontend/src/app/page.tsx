@@ -7,6 +7,7 @@ import Healthiness from '@tc/organisms/Healthiness';
 import Environment from '@tc/organisms/Environment';
 import Solutions from '@tc/organisms/Solutions';
 import Footer from '@tc/organisms/Footer';
+import Justice from '@tc/organisms/Justice';
 
 import useGetLocation from '@tc/utils/useGetLocation';
 
@@ -51,6 +52,7 @@ export default function Home() {
       <Healthiness text={articles?.shortTermHealth} />
       <Environment text={articles?.environment} />
       <Solutions text={articles?.globalWarming} />
+      <Justice text={articles?.longTermHealth} />
       <Footer clearOverlay={clearOverlay} />
       <Overlay particlesNumber={parseInt(pm25)} />
     </>
