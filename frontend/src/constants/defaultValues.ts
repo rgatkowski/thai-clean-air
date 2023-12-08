@@ -1,1 +1,1 @@
-export const defaultPM25Value = '0';
+export const defaultPM25Value = '30';

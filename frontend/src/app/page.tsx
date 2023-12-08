@@ -6,7 +6,7 @@ import Hero from '@tc/organisms/Hero';
 import Healthiness from '@tc/organisms/Healthiness';
 import Environment from '@tc/organisms/Environment';
 import Solutions from '@tc/organisms/Solutions';
-import ArticlesPage from '@tc/organisms/ArticlePage';
+import Footer from '@tc/organisms/Footer';
 
 import useGetLocation from '@tc/utils/useGetLocation';
 
@@ -21,6 +21,10 @@ export default function Home() {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [articles, setArticles] = useState<IArticles>();
+
+  const clearOverlay = () => {
+    setPm25('0');
+  };
 
   useEffect(() => {
     if (latitude && longitude) {
@@ -38,16 +42,17 @@ export default function Home() {
         setArticles(res);
       });
     }
-  }, [city, country, pm25]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city, country]);
 
   return (
     <>
-      <Hero />
-      <Healthiness />
-      <Environment />
-      <Solutions />
-      <Overlay particlesNumber={10} />
-      <ArticlesPage articles={articles} />
+      <Hero city={city} />
+      <Healthiness text={articles?.shortTermHealth} />
+      <Environment text={articles?.environment} />
+      <Solutions text={articles?.globalWarming} />
+      <Footer clearOverlay={clearOverlay} />
+      <Overlay particlesNumber={parseInt(pm25)} />
     </>
   );
 }
