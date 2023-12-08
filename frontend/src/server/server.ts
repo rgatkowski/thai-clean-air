@@ -1,10 +1,11 @@
 import axios from 'axios';
 
+
 const server = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': '973649dc98986199308a3734b26e4e60efb12ecaf29fb4c4110239acb6a67a5f',
+    'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
   },
 });
 

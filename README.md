@@ -8,6 +8,7 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
    `git clone git@github.com:rgatkowski/thai-clean-air.git`
 
 ### Setup environment file
+#### Backend
    Copy `example.env` to `.env`...
    ```shell
    cp example.env .env
@@ -18,6 +19,11 @@ Web page created for Challenge no. 4 during Hack To The Rescue hackaton (https:/
 * `AWS_ACCESS_KEY` - AWS Access Key ID 
 * `AWS_SECRET_ACCESS_KEY` - AWS Secret Access Key
 
+#### Frontend
+   Copy `example.env` to `.env.local` in `./frontend` directory...
+
+   ...and add api secret:
+* `NEXT_PUBLIC_API_KEY=`
    
 ### Run project
    `docker-compose up`
