@@ -13,7 +13,7 @@ annotated-types==0.6.0
 anyio==3.7.1
     # via
     #   fastapi
-    #   langchain
+    #   langchain-core
     #   starlette
 async-timeout==4.0.3
     # via
@@ -90,9 +90,9 @@ jsonpatch==1.33
     #   langchain-core
 jsonpointer==2.4
     # via jsonpatch
-langchain==0.0.347
+langchain==0.0.348
     # via -r requirements.in
-langchain-core==0.0.11
+langchain-core==0.0.12
     # via langchain
 langsmith==0.0.69
     # via
@@ -118,6 +118,7 @@ packaging==23.2
     # via
     #   black
     #   build
+    #   langchain-core
     #   marshmallow
     #   pytest
 pathspec==0.11.2
@@ -163,12 +164,14 @@ pytzdata==2020.1
 pyyaml==6.0.1
     # via
     #   langchain
+    #   langchain-core
     #   pre-commit
 redis==5.0.1
     # via -r requirements.in
 requests==2.31.0
     # via
     #   langchain
+    #   langchain-core
     #   langsmith
 s3transfer==0.8.2
     # via boto3
