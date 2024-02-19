@@ -22,7 +22,7 @@ async-timeout==4.0.3
     #   redis
 attrs==23.1.0
     # via aiohttp
-black==23.11.0
+black==24.2.0
     # via -r requirements.in
 boto3==1.33.9
     # via -r requirements.in
